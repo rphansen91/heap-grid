@@ -1,0 +1,14 @@
+{
+  "name": "heap-grid",
+  "version": "1.0.1",
+  "description": "Randomly position elements based on heap permutations",
+  "main": "heap-grid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify ./src/main.js > ./heap-grid.js",
+    "start": "http-server -p 8000"
+  },
+  "bugs": { "url" : "https://github.com/rphansen91/heap-grid" },
+  "author": "Ryan P. Hansen",
+  "license": "ISC"
+}

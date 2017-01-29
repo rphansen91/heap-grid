@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Heap Grip</title>
+        <link rel="stylesheet" href="/main.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+        <script src="/vendor/prettify.js"></script>
+        <script src="/vendor/urls.js"></script>
+    </head>
+    <body>
+        <div class="bkgd"></div>
+        <a href="https://github.com/rphansen91/heap-grid">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+        </a>
+        <main>
+            <div class="header">
+                <h1>HEAP GRID</h1>
+                <p>400 Permutations Per Group</p>
+            </div>
+            <button onclick="groupsDemo()">Show Groups</button>
+            <button onclick="getStarted()">Get Started</button>
+            <div id="grid"></div>
+        </main>
+        <dialog>
+<a href="https://github.com/rphansen91/heap-grid" target="_blank">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+</a>
+<h3>Installation</h3>
+<pre><code>
+<span class="kwd">npm</span> <span class="typ">install</span> <span class="str">heap-grid</span>
+</code></pre>
+<h3>Usage</h3>
+<pre><code class="prettyprint">
+import HeapGrid from 'heap-grid';
+
+var gridEl = document.getElementById('grid');
+var grid = new HeapGrid(gridEl, { size: 250 });
+
+var elements = [] // GRID ELEMENTS;
+                
+for (var i = 0; i < elements.length; i++) {
+    var style = grid.place();
+    for (var s of style) {
+        elements[i].style[s] = style[s];
+    }
+}
+</code></pre>
+        </dialog>
+        <script src="/heap-grid.js"></script>
+        <script>
+            var dialog = document.querySelector('dialog');
+            var main = document.querySelector('main');
+            var gridEl = document.getElementById('grid');
+            var gridSize = 250;
+            var grid = new HeapGrid(gridEl, { size: gridSize });
+            console.log(urls.length);
+            urls.splice(0,24).map(renderImage);
+            setTimeout(groupsDemo, 2000);
+
+            function renderImage (url) {
+                var style = grid.place();
+                var img = document.createElement('div');
+                img.classList.add('result');
+                if (style.width >= gridSize && style.height >= gridSize) {
+                    img.classList.add('big');
+                } else if (style.width >= gridSize) {
+                    img.classList.add('wide');
+                } else if (style.height >= gridSize) {
+                    img.classList.add('tall');
+                }
+                img.style['background-image'] = 'url(' + url + ')';
+                Object.keys(style).map(function (s) {
+                    img.style[s] = style[s] + 'px';
+                })
+                gridEl.appendChild(img)
+            }
+            var timer;
+            var time = 2000;
+            var demoEl = document.createElement('div');
+            function groupsDemo (index) {
+                clearTimeout(timer);
+                demoEl.classList.add('demo');
+                gridEl.classList.add('grid');
+                demoEl.style['height'] = grid.groups.size * 2 + 'px';
+                demoEl.style['line-height'] = grid.groups.size * 2 + 'px';
+                demoEl.style['width'] = grid.groups.size * 2 + 'px';
+                gridEl.appendChild(demoEl);
+                function end () {
+                    gridEl.classList.remove('grid');
+                    demoEl.style['opacity'] = 0;
+                    clearTimeout(timer);
+                }
+                function demo (group, index) {
+                    demoEl.innerHTML = 'Group ' + index;
+                    demoEl.style['top'] = group.top + 'px';
+                    demoEl.style['left'] = group.left + 'px';
+                    demoEl.style['opacity'] = 1;
+                }
+                (function begin (index) {
+                    if (!grid.groups.groups[index]) return end();
+
+                    demo(grid.groups.groups[index], index);
+                    timer = setTimeout(function () {
+                        begin(++index);
+                    }, time);
+                })(0);
+            }
+
+            function closeGettingStarted () {
+                dialog.removeAttribute('open');
+                main.classList.remove('deemphasized');
+                main.removeEventListener('click', closeGettingStarted);
+            }
+
+            function getStarted () {
+                dialog.setAttribute('open', '');
+                main.classList.add('deemphasized');
+                setTimeout(function () {
+                    main.addEventListener('click', closeGettingStarted);
+                }, 300);
+            }
+        </script>
+    </body>
+</html>
