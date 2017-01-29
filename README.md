@@ -1,10 +1,10 @@
 Heap Grid
 =========
 
-[![Demo](https://raw.githubusercontent.com/rphansen91/heap-grid/master/demo.jpg)](http://localhost:8000)
+[![Demo](https://rphansen91.github.io/heap-grid/demo.jpg)](https://rphansen91.github.io/heap-grid/)
 
 [Github](https://github.com/rphansen91/heap-grid)
-[Demo](http://localhost:8000)
+[Demo](https://rphansen91.github.io/heap-grid/)
 
 Description
 ------------
